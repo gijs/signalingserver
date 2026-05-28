@@ -1,16 +1,18 @@
-const WebSocket = require('ws');
-const port = process.env.PORT || 4444;
-const wss = new WebSocket.Server({ port });
+import { createServer } from "http";
+import { WebSocketServer } from "ws";
+import { setupWSConnection } from "y-websocket/bin/utils.js";
 
-wss.on('connection', (ws) => {
-  ws.on('message', (message) => {
-    // Broadcast incoming signaling data to all other connected peers
-    wss.clients.forEach((client) => {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
-        client.send(message);
-      }
-    });
-  });
+const host = process.env.HOST || "0.0.0.0";
+const port = parseInt(process.env.PORT || "8080");
+
+const server = createServer((_, res) => {
+  res.writeHead(200);
+  res.end("ok");
 });
 
-console.log(`Signaling server running on port ${port}`);
+const wss = new WebSocketServer({ server });
+wss.on("connection", (ws, req) => setupWSConnection(ws, req));
+
+server.listen(port, host, () => {
+  console.log(`y-websocket listening on ${host}:${port}`);
+});
