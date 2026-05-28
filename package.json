@@ -1,7 +1,6 @@
 {
-  "name": "y-websocket-server",
+  "name": "signalingserver",
   "version": "1.0.0",
-  "main": "server.js",
   "scripts": {
     "start": "y-websocket"
   },
