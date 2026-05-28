@@ -1,11 +1,11 @@
 {
-  "name": "y-webrtc-signaling",
+  "name": "y-websocket-server",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "y-websocket"
   },
   "dependencies": {
-    "ws": "^8.0.0"
+    "y-websocket": "^3.0.0"
   }
 }
